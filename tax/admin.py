@@ -21,8 +21,9 @@ class CustomerAdmin(admin.ModelAdmin):
   list_display = ['first_name', 'last_name', 'phone', 'organization_type',
                   'organization_name', 'customer_status', 'messages_count']
   
-  ordering = ['first_name', 'last_name']
   list_per_page = 10
+  ordering = ['first_name', 'last_name']
+  search_fields = ['first_name__istartswith', 'last_name__istartswith']
 
   @admin.display(ordering='messages_count')
   def messages_count(self, customer):
