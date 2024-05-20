@@ -1,5 +1,7 @@
 from django.contrib import admin
-from django.db.models import Count
+from django.db.models.aggregates import Count
+from django.urls import reverse
+from django.utils.html import format_html, urlencode
 from . import models
 
 @admin.register(models.Message)
@@ -12,8 +14,7 @@ class MessageAdmin(admin.ModelAdmin):
     if message.status == True:
       return 'Active'
     return 'Inactive'
-
-
+  
 
 @admin.register(models.Customer)
 class CustomerAdmin(admin.ModelAdmin):
@@ -25,7 +26,13 @@ class CustomerAdmin(admin.ModelAdmin):
 
   @admin.display(ordering='messages_count')
   def messages_count(self, customer):
-    return customer.messages_count
+    url = (
+        reverse('admin:tax_message_changelist') 
+        + '?'
+        + urlencode({
+          'customer__id': str(customer.id)
+        }))
+    return format_html('<a href="{}">{}</a>', url, customer.messages_count)    
   
   def get_queryset(self, request):
       return super().get_queryset(request).annotate(
