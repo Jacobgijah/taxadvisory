@@ -6,6 +6,7 @@ from . import models
 
 @admin.register(models.Message)
 class MessageAdmin(admin.ModelAdmin):
+  autocomplete_fields = ['customer']
   actions = ['clear_inactive_messages']
   list_display = ['message', 'message_alert', 'message_status', 'customer']
   list_filter = ['message_alert', 'status', 'created_at']
@@ -56,4 +57,7 @@ class CustomerAdmin(admin.ModelAdmin):
       return 'Active'
     return 'Inactive'
 
-admin.site.register(models.TaxRegion)
+@admin.register(models.TaxRegion)
+class TaxRegion(admin.ModelAdmin):
+  list_display = ['region', 'district']
+  list_per_page = 10
