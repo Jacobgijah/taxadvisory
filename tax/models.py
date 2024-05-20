@@ -1,7 +1,7 @@
 from django.db import models
 
 class Customer(models.Model):
-  OTHERS = 'O'
+  OTHERS = 'OT'
   TRUST = 'TR'
   GOVERNMENT = 'GO'
   NON_GOVERNMENT = 'NG'
@@ -19,7 +19,8 @@ class Customer(models.Model):
   first_name = models.CharField(max_length=255)
   last_name = models.CharField(max_length=255)
   phone = models.CharField(max_length=13, unique=True)
-  
+  email = models.EmailField(unique=True, null=True, blank=True, default="info@email.com")
+
   organization_type = models.CharField(max_length=2, choices=ORGANIZATION_TYPE)
   organization_name = models.CharField(max_length=20)
   
@@ -55,7 +56,7 @@ class TaxRegion(models.Model):
 
     ('AR', 'Arusha'),	
     ('DS', 'Dar es Salaam	'),
-    ('Do', 'Dodoma'),
+    ('DO', 'Dodoma'),
     ('GE', 'Geita'),	
     ('IR', 'Iringa'),
     ('KA', 'Kagera'),	
