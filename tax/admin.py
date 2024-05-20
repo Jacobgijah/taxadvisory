@@ -6,6 +6,7 @@ from . import models
 
 @admin.register(models.Message)
 class MessageAdmin(admin.ModelAdmin):
+  actions = ['clear_inactive_messages']
   list_display = ['message', 'message_alert', 'message_status', 'customer']
   list_filter = ['message_alert', 'status', 'created_at']
   list_per_page = 10
@@ -15,6 +16,14 @@ class MessageAdmin(admin.ModelAdmin):
     if message.status == True:
       return 'Active'
     return 'Inactive'
+  
+  @admin.action(description='Clear Inactive Messages')
+  def clear_inactive_messages(self, request, queryset):
+    updated_query = queryset.update(status=0)
+    self.message_user(
+      request,
+      f'{updated_query} messages were successfully updated.'
+    )
   
 
 @admin.register(models.Customer)
