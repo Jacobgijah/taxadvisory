@@ -6,7 +6,8 @@ from . import models
 
 @admin.register(models.Message)
 class MessageAdmin(admin.ModelAdmin):
-  list_display = ['message', 'message_alert', 'created_at', 'message_status', 'customer']
+  list_display = ['message', 'message_alert', 'message_status', 'customer']
+  list_filter = ['message_alert', 'status', 'created_at']
   list_per_page = 10
   
   @admin.display(ordering='status')
