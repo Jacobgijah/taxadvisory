@@ -1,8 +1,7 @@
 from django.contrib import admin
-from tax.models import Customer
+from . import models
 
 
-@admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin):
-  list_display = ['first_name', 'last_name', 'phone', 'organization_type', 'status']
-
+admin.site.register(models.Customer)
+admin.site.register(models.Message)
+admin.site.register(models.TaxRegion)

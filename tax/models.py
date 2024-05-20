@@ -30,6 +30,9 @@ class Customer(models.Model):
   def __str__(self) -> str:
     return f"{self.first_name}, {self.last_name}"
 
+  class Meta:
+    ordering = ['first_name', 'last_name']
+
 
 class Message(models.Model):
   ALERT_NOT_URGENT = 'NU'
@@ -49,6 +52,12 @@ class Message(models.Model):
   
   status = models.BooleanField(default=True)
   created_at = models.DateTimeField(auto_now_add=True)
+
+  def __str__(self) -> str:
+    return self.message
+
+  class Meta:
+    ordering = ['-created_at']
 
 
 class TaxRegion(models.Model):
@@ -95,3 +104,9 @@ class TaxRegion(models.Model):
   status = models.BooleanField(default=True)
 
   created_at = models.DateField(auto_now_add=True)
+
+  def __str__(self) -> str:
+    return self.region
+
+  class Meta:
+    ordering = ['region', 'district']
