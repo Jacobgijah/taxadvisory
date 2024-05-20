@@ -3,9 +3,9 @@ from . import models
 
 @admin.register(models.Message)
 class MessageAdmin(admin.ModelAdmin):
-  list_display = ['message', 'message_alert', 'created_at', 'message_status']
+  list_display = ['message', 'message_alert', 'created_at', 'message_status', 'customer']
   list_per_page = 10
-
+  
   @admin.display(ordering='status')
   def message_status(self, message):
     if message.status == True:
