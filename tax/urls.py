@@ -2,5 +2,6 @@ from django.urls import path
 from tax import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('messages/', views.message_list),
+    path('messages/<int:id>/', views.message_detail),
 ]
