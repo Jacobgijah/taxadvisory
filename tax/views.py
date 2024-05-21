@@ -7,8 +7,8 @@ from .serializers import MessageSerializer
 
 @api_view()
 def message_list(request):
-  queryset = Message.objects.all()
-  serializer = MessageSerializer(queryset, many=True)
+  queryset = Message.objects.select_related('customer').all()
+  serializer = MessageSerializer(queryset, many=True, context={'request': request})
   return Response(serializer.data)
 
 
@@ -17,3 +17,7 @@ def message_detail(request, id):
   message = get_object_or_404(Message, pk=id)
   serializer = MessageSerializer(message) # dictionary of message
   return Response(serializer.data)
+
+@api_view()
+def customer_detail(request, pk):
+  return Response('OK')
