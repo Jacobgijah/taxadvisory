@@ -1,18 +1,18 @@
 from rest_framework import serializers
-from tax.models import Customer
+from tax.models import Message, Customer
 
 
-class CustomerSerializer(serializers.Serializer):
-  id = serializers.IntegerField()
-  first_name = serializers.CharField(max_length=255)
-  last_name = serializers.CharField(max_length=255)
-  phone = serializers.CharField(max_length=13)
+class CustomerSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Customer
+    fields = ['id', 'first_name', 'last_name', 'phone']
 
 
-class MessageSerializer(serializers.Serializer):
-  id = serializers.IntegerField()
-  message = serializers.CharField(max_length=255)
-  message_alert = serializers.CharField(max_length=2)
+class MessageSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Message
+    fields = ['id', 'message', 'message_alert', 'customer']
+
   customer = serializers.HyperlinkedRelatedField(
     queryset=Customer.objects.all(),
     view_name='customer-detail'
