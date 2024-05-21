@@ -15,7 +15,7 @@ def message_list(request):
 @api_view()
 def message_detail(request, id):
   message = get_object_or_404(Message, pk=id)
-  serializer = MessageSerializer(message) # dictionary of message
+  serializer = MessageSerializer(message, context={'request': request}) # dictionary of message
   return Response(serializer.data)
 
 @api_view()
