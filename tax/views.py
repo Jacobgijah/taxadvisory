@@ -5,12 +5,16 @@ from .models import Message
 from .serializers import MessageSerializer
 
 
-@api_view()
+@api_view(['GET', 'POST'])
 def message_list(request):
-  queryset = Message.objects.select_related('customer').all()
-  serializer = MessageSerializer(queryset, many=True, context={'request': request})
-  return Response(serializer.data)
-
+  if request.method == 'GET':
+    queryset = Message.objects.select_related('customer').all()
+    serializer = MessageSerializer(queryset, many=True, context={'request': request})
+    return Response(serializer.data)
+  
+  elif request.method == 'POST':
+    serializer = MessageSerializer(data=request.data)
+    return Response('OK')
 
 @api_view()
 def message_detail(request, id):
