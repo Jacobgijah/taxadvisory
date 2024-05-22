@@ -16,15 +16,23 @@ def message_list(request):
   elif request.method == 'POST':
     serializer = MessageSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
-    print(serializer.validated_data)
-    return Response('OK')
+    serializer.save()
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
   
 
-@api_view()
+@api_view(['GET', 'PUT'])
 def message_detail(request, id):
   message = get_object_or_404(Message, pk=id)
-  serializer = MessageSerializer(message, context={'request': request}) # dictionary of message
-  return Response(serializer.data)
+  if request.method == 'GET':
+    serializer = MessageSerializer(message, context={'request': request}) # dictionary of message
+    return Response(serializer.data)
+
+  elif request.method == 'PUT':
+    serializer = MessageSerializer(message, data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(serializer.data)
+
 
 @api_view()
 def customer_detail(request, pk):
