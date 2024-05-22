@@ -13,7 +13,7 @@ class MessageSerializer(serializers.ModelSerializer):
     model = Message
     fields = ['id', 'message', 'message_alert', 'customer']
 
-  customer = serializers.HyperlinkedRelatedField(
-    queryset=Customer.objects.all(),
-    view_name='customer-detail'
-  )
+  # customer = serializers.HyperlinkedRelatedField(
+  #   queryset=Customer.objects.all(),
+  #   view_name='customer-detail'
+  # )

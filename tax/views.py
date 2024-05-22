@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
 from .models import Message
 from .serializers import MessageSerializer
 
@@ -14,7 +15,10 @@ def message_list(request):
   
   elif request.method == 'POST':
     serializer = MessageSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    print(serializer.validated_data)
     return Response('OK')
+  
 
 @api_view()
 def message_detail(request, id):
