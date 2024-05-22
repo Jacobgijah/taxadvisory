@@ -55,21 +55,19 @@ def customer_list(request):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def customer_detail(request, pk):
-  customer = get_object_or_404(
-    Customer.objects.annotate(messages_count=Count('messages'), pk=pk)
-  )
-
-  if request.method == 'GET':
-    serializer = CustomerSerializer(Customer)
-    return Response(serializer.data)
-  
-  elif request.method == 'PUT':
-    serializer = CustomerSerializer(Customer, data=request.data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
-    return Response(serializer.data)
-  
-  elif request.method == 'DELETE':
-    customer.delete()
-    return Response({'success': 'Customer deleted'}, status=status.HTTP_204_NO_CONTENT)
-  
+    customer = get_object_or_404(Customer, pk=pk)
+    annotated_customer = Customer.objects.annotate(messages_count=Count('messages')).get(pk=pk)
+    
+    if request.method == 'GET':
+        serializer = CustomerSerializer(annotated_customer)
+        return Response(serializer.data)
+    
+    elif request.method == 'PUT':
+        serializer = CustomerSerializer(customer, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    
+    elif request.method == 'DELETE':
+        customer.delete()
+        return Response({'success': 'Customer deleted'}, status=status.HTTP_204_NO_CONTENT)
