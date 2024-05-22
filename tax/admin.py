@@ -25,6 +25,11 @@ class MessageAdmin(admin.ModelAdmin):
       request,
       f'{updated_query} messages were successfully updated.'
     )
+
+  def get_queryset(self, request):
+    return super().get_queryset(request).annotate(
+      messages_count=Count('message')
+    )
   
 
 @admin.register(models.Customer)
@@ -48,7 +53,7 @@ class CustomerAdmin(admin.ModelAdmin):
   
   def get_queryset(self, request):
       return super().get_queryset(request).annotate(
-        messages_count=Count('message')
+        messages_count=Count('messages')
       )
 
   @admin.display(ordering='status')
