@@ -8,7 +8,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     fields = ['id', 'first_name', 'last_name', 'phone', 'email',
                'organization_type', 'organization_name', 'messages_count']
 
-  messages_count = serializers.IntegerField()
+  messages_count = serializers.IntegerField(read_only=True)
 
 
 class MessageSerializer(serializers.ModelSerializer):
