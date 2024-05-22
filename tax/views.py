@@ -20,7 +20,7 @@ def message_list(request):
     return Response(serializer.data, status=status.HTTP_201_CREATED)
   
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def message_detail(request, id):
   message = get_object_or_404(Message, pk=id)
   if request.method == 'GET':
@@ -32,6 +32,10 @@ def message_detail(request, id):
     serializer.is_valid(raise_exception=True)
     serializer.save()
     return Response(serializer.data)
+  
+  elif request.method == 'DELETE':
+    message.delete()
+    return Response({'success': 'Message deleted'}, status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view()

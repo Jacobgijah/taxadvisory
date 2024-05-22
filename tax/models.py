@@ -45,7 +45,7 @@ class Message(models.Model):
     (ALERT_URGENT, 'Urgent'),
   ]
 
-  customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+  customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
   message = models.CharField(max_length=255)
   message_alert = models.CharField(max_length=2, choices=ALERT_CHOICES, default=ALERT_NOT_URGENT)
