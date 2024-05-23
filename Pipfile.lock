@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "bcd31e96a30851b6778c60481c3683498589af00cea458a0b4c22c9c3dcce05b"
+            "sha256": "a6ec42adb1779be2b4667bbe4340f031ac41e866232a036ca03a4b81ea9361c4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -39,6 +39,14 @@
             ],
             "index": "pypi",
             "version": "==0.6.1"
+        },
+        "django-filter": {
+            "hashes": [
+                "sha256:48e5fc1da3ccd6ca0d5f9bb550973518ce977a4edde9d2a8a154a7f4f0b9f96e",
+                "sha256:df2ee9857e18d38bed203c8745f62a803fa0f31688c9fe6f8e868120b1848e48"
+            ],
+            "index": "pypi",
+            "version": "==24.2"
         },
         "django-model-utils": {
             "hashes": [

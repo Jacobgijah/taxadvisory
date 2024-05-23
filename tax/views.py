@@ -1,24 +1,19 @@
 from django.db.models.aggregates import Count
 from django.shortcuts import get_object_or_404
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
+from .filters import MessageFilter
 from .models import Message, Customer, TaxRegion
 from .serializers import MessageSerializer, CustomerSerializer, TaxRegionSerializer
 
 
 class MessageViewSet(ModelViewSet):
+  queryset = Message.objects.all()
   serializer_class = MessageSerializer
-
-  def get_queryset(self):
-    queryset = Message.objects.all()
-    customer_id = self.request.query_params.get('customer_id')
-
-    if customer_id is not None:
-      queryset = queryset.filter(customer_id=customer_id)
-
-    return queryset
+  filter_backends = [DjangoFilterBackend]
+  filterset_class = MessageFilter
 
   def get_serializer_context(self):
      return {'request': self.request}
