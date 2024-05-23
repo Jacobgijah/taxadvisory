@@ -9,8 +9,16 @@ from .serializers import MessageSerializer, CustomerSerializer, TaxRegionSeriali
 
 
 class MessageViewSet(ModelViewSet):
-  queryset = Message.objects.select_related('customer').all()
   serializer_class = MessageSerializer
+
+  def get_queryset(self):
+    queryset = Message.objects.all()
+    customer_id = self.request.query_params.get('customer_id')
+
+    if customer_id is not None:
+      queryset = queryset.filter(customer_id=customer_id)
+
+    return queryset
 
   def get_serializer_context(self):
      return {'request': self.request}
