@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from tax.models import Message, Customer
+from tax.models import Message, Customer, TaxRegion
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -20,3 +20,9 @@ class MessageSerializer(serializers.ModelSerializer):
   #   queryset=Customer.objects.all(),
   #   view_name='customer-detail'
   # )
+
+
+class TaxRegionSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = TaxRegion
+    fields = ['customer', 'region', 'district']

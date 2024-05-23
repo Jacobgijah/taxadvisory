@@ -1,14 +1,9 @@
-from django.urls import path, include
-from rest_framework import routers
+from rest_framework.routers import DefaultRouter
 from tax import views
 
-router = routers.DefaultRouter()
-router.register('messages', views.MessageViewSet)
+router = DefaultRouter()
+router.register(r'messages', views.MessageViewSet)
+router.register(r'customers', views.CustomerViewSet) 
+router.register(r'taxregions', views.TaxRegionViewSet) 
 
-urlpatterns = [
-    path('', include(router.urls)),
-    # path('messages/', views.MessageList.as_view()),
-    # path('messages/<int:pk>/', views.MessageDetail.as_view()),
-    path('customers/', views.CustomerList.as_view()),
-    path('customers/<int:pk>/', views.CustomerDetail.as_view(), name='customer-detail'),
-]
+urlpatterns = router.urls
