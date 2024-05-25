@@ -40,3 +40,4 @@ class CustomerViewSet(ModelViewSet):
 class TaxRegionViewSet(ModelViewSet):
   queryset = TaxRegion.objects.all()
   serializer_class = TaxRegionSerializer
+

@@ -22,5 +22,5 @@ admin.AdminSite.index_title = 'Admin'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tax/', include('tax.urls')),
+    path('', include('tax.urls')),
 ]

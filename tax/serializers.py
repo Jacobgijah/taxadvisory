@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from tax.models import Message, Customer, TaxRegion
+from .models import Message, Customer, TaxRegion
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -26,3 +26,4 @@ class TaxRegionSerializer(serializers.ModelSerializer):
   class Meta:
     model = TaxRegion
     fields = ['customer', 'region', 'district']
+    
