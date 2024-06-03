@@ -9,6 +9,8 @@ django-cities = "*"
 djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
