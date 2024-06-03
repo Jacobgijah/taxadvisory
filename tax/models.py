@@ -63,6 +63,9 @@ class Message(models.Model):
 
   class Meta:
     ordering = ['-created_at']
+    permissions = [
+      ('cancel_message', 'Can cancel message'),
+    ]
 
 
 class TaxRegion(models.Model):
