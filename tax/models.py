@@ -1,3 +1,5 @@
+from django.contrib import admin
+from django.conf import settings
 from django.db import models
 
 class Customer(models.Model):
@@ -16,22 +18,25 @@ class Customer(models.Model):
     (PARTNERSHIP_JOINT_VENTURE, 'Partner / Joint Venture'),
   ]
 
-  first_name = models.CharField(max_length=255)
-  last_name = models.CharField(max_length=255)
   phone = models.CharField(max_length=13, unique=True)
-  email = models.EmailField(unique=True, null=True, blank=True, default="info@email.com")
-
   organization_type = models.CharField(max_length=2, choices=ORGANIZATION_TYPE)
   organization_name = models.CharField(max_length=20)
   
-  status = models.BooleanField(default=False)
-  created_at = models.DateTimeField(auto_now_add=True)
+  user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
   def __str__(self) -> str:
-    return f"{self.first_name} {self.last_name}"
+    return f"{self.user.first_name} {self.user.last_name}"
+
+  @admin.display(ordering='user__first_name')
+  def first_name(self):
+    return self.user.first_name
+  
+  @admin.display(ordering='user__last_name')
+  def last_name(self):
+    return self.user.last_name
 
   class Meta:
-    ordering = ['first_name', 'last_name']
+    ordering = ['user__first_name', 'user__last_name']
 
 
 class Message(models.Model):
