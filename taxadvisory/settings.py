@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # custom_app
-    'tax'
+    'core',
+    'tax',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,5 @@ REST_FRAMEWORK = {
   'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
   'PAGE_SIZE': 10,
 }
+
+AUTH_USER_MODEL = 'core.User'
