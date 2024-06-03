@@ -20,22 +20,18 @@ class MessageViewSet(ModelViewSet):
 
   def get_serializer_context(self):
      return {'request': self.request}
+  
+  def destroy(self, request, *args, **kwargs):
+    return super().destroy(request, *args, **kwargs)
 
-  def delete(self, request, pk):
-    message = get_object_or_404(Message, pk=pk)
-    message.delete()
-    return Response({'success': 'Message deleted'}, status=status.HTTP_204_NO_CONTENT)
 
 
 class CustomerViewSet(ModelViewSet):
   queryset = Customer.objects.annotate(messages_count=Count('messages')).all()
   serializer_class = CustomerSerializer
 
-  def delete(self, request, pk):
-    customer = get_object_or_404(Customer, pk=pk)
-    customer.delete()
-    return Response({'success': 'Customer deleted'}, status=status.HTTP_204_NO_CONTENT)
-
+  def destroy(self, request, *args, **kwargs):
+    return super().destroy(request, *args, **kwargs)
 
 class TaxRegionViewSet(ModelViewSet):
   queryset = TaxRegion.objects.all()
